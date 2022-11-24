@@ -3,11 +3,14 @@ const express=require('express');
 const bodyparser=require('body-parser');
 const static_path=path.join(__dirname,'./public');
 console.log(path.join(__dirname,"./public"));
+//const {json}=require('json');
 const cors=require('cors');
 const sequelize=require('./model/database');
 const User=require('./model/user');
 
 const app=express();
+const dotenv=require('dotenv');
+dotenv.config()
 app.use(cors());
 app.use(express.static(static_path));
 app.use(bodyparser.urlencoded({ extended: false }));
@@ -20,6 +23,7 @@ app.get('/get-users',(req,res)=>{
         res.send(users)
     }).catch(err=>{
         console.log(err);
+        console.log('err');
         res.json(err)
     })
 })
@@ -42,6 +46,9 @@ app.post('/add-users',(req,res)=>{
                     }
         })
     })
+    .catch(err=>{
+        console.log(err);
+    });
 })
 
 
